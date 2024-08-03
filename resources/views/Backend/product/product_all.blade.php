@@ -76,7 +76,7 @@
 					@if($item->status == 1)
 					<a href="{{ route('product.inactive',$item->id) }}" class="btn btn-primary" title="Inactivate"> <i class="fa-solid fa-thumbs-up"></i> </a>
 					@else
-					<a href="{{ route('product.active',$item->id) }}" class="btn btn-primary" title="Activate"> <i class="fa-solid text-danger fa-thumbs-down"></i> </a>
+					<a href="{{ route('product.active',$item->id) }}" class="btn btn-primary" title="Activate"> <i class="fa-solid text-danger fa-solid fa-triangle-exclamation"></i> </a>
 					@endif
 
 				</td> 
