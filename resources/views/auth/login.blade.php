@@ -14,6 +14,9 @@
         <link rel="shortcut icon" type="image/x-icon" href="{{ asset('frontend/assets/imgs/theme/favicon.svg') }}" />
         <!-- Template CSS -->
         <link rel="stylesheet" href="{{ asset('frontend/assets/css/main.css?v=5.3') }}" />
+         <!-- Toaster -->
+ <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.css" >
+ <!-- Toaster   -->
     </head>
     <body>
 
@@ -40,40 +43,42 @@
             <div class="padding_eight_all bg-white">
                 <div class="heading_s1">
                     <h1 class="mb-5">Login</h1>
-                    <p class="mb-30">Don't have an account? <a href="{{ route('register') }}">Create here</a></p>
+                    <p class="mb-30">Don't have an account? <a href="page-register.html">Create here</a></p>
                 </div>
 
-                <form method="POST" action="{{ route('login') }}">
-                    @csrf
-                    <div class="form-group">
-                        <input type="email" id="email"  required="" name="email" placeholder="Username or Email *" />
-                    </div>
-                    <div class="form-group">
-                        <input required="" id="password" type="password" name="password" placeholder="Your password *" />
-                    </div>
-    
-                    <div class="login_footer form-group mb-50">
-                        <div class="chek-form">
-                            <div class="custome-checkbox">
-                                <input class="form-check-input" type="checkbox" name="checkbox" id="exampleCheckbox1" value="" />
-                                <label class="form-check-label" for="exampleCheckbox1"><span>Remember me</span></label>
-                            </div>
-                        </div>
-                        <a class="text-muted" href="{{ route('password.request') }}">Forgot password?</a>
-                    </div>
-                    <div class="form-group">
-                        <button type="submit" class="btn btn-heading btn-block hover-up" name="login">Log in</button>
-                    </div>
-                </form>
+
+               <form method="POST" action="{{ route('login') }}">
+            @csrf
+            <div class="form-group">
+                <input type="email" id="email"  required="" name="email" placeholder="Username or Email *" />
             </div>
-        </div>
-                                </div>
-                            </div>
+            <div class="form-group">
+                <input required="" id="password" type="password" name="password" placeholder="Your password *" />
+            </div>
+
+            <div class="login_footer form-group mb-50">
+                <div class="chek-form">
+                    <div class="custome-checkbox">
+                        <input class="form-check-input" type="checkbox" name="checkbox" id="exampleCheckbox1" value="" />
+                        <label class="form-check-label" for="exampleCheckbox1"><span>Remember me</span></label>
+                    </div>
+                </div>
+                <a class="text-muted" href="{{ route('password.request') }}">Forgot password?</a>
+            </div>
+            <div class="form-group">
+                <button type="submit" class="btn btn-heading btn-block hover-up" name="login">Log in</button>
+            </div>
+        </form>
+    </div>
+</div>
                         </div>
                     </div>
                 </div>
             </div>
-        </main>
+        </div>
+    </div>
+</main>
+
         @include('frontend.body.footer')
         <div id="preloader-active">
             <div class="preloader d-flex align-items-center justify-content-center">
@@ -81,9 +86,7 @@
                     <div class="text-center">
                         <img src="{{ asset('frontend/assets/imgs/theme/loading.gif') }}" alt="" />
                     </div>
-                </div>
-            </div>
-        </div>
+                </div></div></div>
         <!-- Vendor JS-->
        <script src="{{ asset('frontend/assets/js/vendor/modernizr-3.6.0.min.js') }}"></script>
         <script src="{{ asset('frontend/assets/js/vendor/jquery-3.6.0.min.js') }}"></script>
@@ -107,6 +110,29 @@
         <!-- Template  JS -->
         <script src="{{ asset('frontend/assets/js/main.js?v=5.3') }}"></script>
         <script src="{{ asset('frontend/assets/js/shop.js?v=5.3') }}"></script>
+
+        <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
+
+        <script>
+         @if(Session::has('message'))
+         var type = "{{ Session::get('alert-type','info') }}"
+         switch(type){
+            case 'info':
+            toastr.info(" {{ Session::get('message') }} ");
+            break;
+            case 'success':
+            toastr.success(" {{ Session::get('message') }} ");
+            break;
+            case 'warning':
+            toastr.warning(" {{ Session::get('message') }} ");
+            break;
+            case 'error':
+            toastr.error(" {{ Session::get('message') }} ");
+            break; 
+         }
+         @endif 
+        </script>
+        
     </body>
     
     </html>

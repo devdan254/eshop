@@ -106,6 +106,19 @@
 
                             <div class="row mb-3">
                                 <div class="col-sm-3">
+                                    <h6 class="mb-0">Vendor Info</h6>
+                                </div>
+                                <div class="col-sm-9 text-secondary">
+                                    <textarea name="vendor_short_info" value="{{  $vendorData->vendor_short_info}}">
+
+
+                                    </textarea>
+                                   
+                                </div>
+                            </div>
+                            
+                            <div class="row mb-3">
+                                <div class="col-sm-3">
                                     <h6 class="mb-0">Photo</h6>
                                 </div>
                                 <div class="col-sm-9 text-secondary">
