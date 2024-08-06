@@ -25,7 +25,7 @@ class SubCategoryController extends Controller
         SubCategory::insert([
             'category_id'=>$request->category_id,
             'subcategory_name'=>$request->subcategory_name,
-            'subcategory_slug'=>strtolower(str_replace(' ', '-',$request->brand_name))
+            'subcategory_slug'=>strtolower(str_replace(' ', '-',$request->subcategory_name))
         ]);
 
         $notification = array(

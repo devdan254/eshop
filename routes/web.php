@@ -13,6 +13,7 @@ use App\Http\Middleware\RedirectIfAuthenticated;
 use App\Http\Controllers\Backend\VendorProductController;
 use App\Http\Controllers\Backend\SliderController;
 use App\Http\Controllers\Backend\BannerController;
+use App\Http\Controllers\Frontend\IndexController;
 
 /*
 |--------------------------------------------------------------------------
@@ -25,9 +26,9 @@ use App\Http\Controllers\Backend\BannerController;
 |
 */
 
-Route::get('/', function () {
-    return view('frontend.index');
-});
+Route::get('/', [IndexController::class, 'Index']);
+
+
 
 Route::middleware('auth')->group(function () {
     //user Dashboard
@@ -203,3 +204,13 @@ Route::controller(SliderController::class)->group(function(){
 });
 
 });//Admin role middleware
+
+
+/// Frontend Product Details All Route 
+//Route::get('/product/details/{id}/{slug}', [IndexController::class, 'ProductDetails']);
+Route::get('/product/details/{id}/{slug}', [IndexController::class, 'ProductDetails']);
+Route::get('/vendor/details/{id}/{name}', [IndexController::class, 'VendorDetails'])->name('vendor.details');
+Route::get('/vendor/all', [IndexController::class, 'VendorAll'])->name('vendor.all');
+Route::get('/product/category/{id}/{slug}', [IndexController::class, 'CatWiseProduct']);
+Route::get('/product/subcategory/{id}/{slug}', [IndexController::class, 'SubCatWiseProduct']);
+Route::get('/product/view/modal/{id}', [IndexController::class, 'ProductViewAjax']);

@@ -14,14 +14,18 @@ $categories = App\Models\Category::orderBy('category_name','ASC')->get();
         </div>
         <div class="carausel-10-columns-cover position-relative">
             <div class="carausel-10-columns" id="carausel-10-columns">
+                @foreach($categories as $category)
                 <div class="card-2 bg-9 wow animate__animated animate__fadeInUp" data-wow-delay=".1s">
                     <figure class="img-hover-scale overflow-hidden">
-                        <a href="shop-grid-right.html"><img src="{{ asset('frontend/assets/imgs/shop/cat-13.png') }}" alt="" /></a>
+                        <a href="shop-grid-right.html"><img src="{{ asset($category->category_image ) }}" alt="" /></a>
                     </figure>
-                    <h6><a href="shop-grid-right.html">Cake & Milk</a></h6>
-                    <span>26 items</span>
+                    <h6><a href="shop-grid-right.html">{{ $category->category_name }}</a></h6>
+                    @php
+                    $products = App\Models\Product::where('category_id',$category->id)->get();
+                    @endphp
+                     <span>{{ count($products) }} items</span>
                 </div>
-              
+                @endforeach 
             </div>
         </div>
     </div>
