@@ -39,8 +39,9 @@ $featured = App\Models\Product::where('featured',1)->orderBy('id','DESC')->limit
             </div>
             <div class="product-action-1">
                
-                <a aria-label="Add To Wishlist" class="action-btn small hover-up" href="shop-wishlist.html"><i class="fi-rs-heart"></i></a>
-                <a aria-label="Compare" class="action-btn small hover-up" href="shop-compare.html"><i class="fi-rs-shuffle"></i></a>
+                <a aria-label="Add To Wishlist" class="action-btn" id="{{ $product->id }}" onclick="addToWishList(this.id)"  ><i class="fi-rs-heart"></i></a>
+
+                <a aria-label="Compare" class="action-btn"  id="{{ $product->id }}" onclick="addToCompare(this.id)"><i class="fi-rs-shuffle"></i></a>
                 <a aria-label="Quick view" class="action-btn small hover-up" data-bs-toggle="modal" data-bs-target="#quickViewModal" id="{{ $product->id }}" onclick="productView(this.id)"> <i class="fi-rs-eye"></i></a>
             </div>
 
@@ -85,7 +86,7 @@ $discount = ($amount/$product->selling_price) * 100;
                 </div>
 
             </div>
-            <a href="shop-cart.html" class="btn w-100 hover-up"><i class="fi-rs-shopping-cart mr-5"></i>Add To Cart</a>
+            <a  href="{{ url('product/details/'.$product->id.'/'.$product->product_slug) }}" class="btn w-100 hover-up"><i class="fi-rs-shopping-cart mr-5"></i>Details</a>
         </div>
     </div>
     <!--End product Wrap-->

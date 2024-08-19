@@ -14,7 +14,16 @@ use App\Http\Controllers\Backend\VendorProductController;
 use App\Http\Controllers\Backend\SliderController;
 use App\Http\Controllers\Backend\BannerController;
 use App\Http\Controllers\Frontend\IndexController;
-
+use App\Http\Controllers\Frontend\CartController;
+use App\Http\Controllers\User\WishlistController;
+use App\Http\Controllers\User\CompareController;
+use App\Http\Controllers\Backend\CouponController;
+use App\Http\Controllers\Backend\ShippingAreaController;
+use App\Http\Controllers\User\CheckoutController;
+use App\Http\Controllers\User\StripeController;
+use App\Http\Controllers\Backend\OrderController;
+use App\Http\Controllers\Backend\VendorOrderController;
+use App\Http\Controllers\User\AllUserController;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -102,9 +111,14 @@ Route::middleware(['auth','role:vendor'])->group(function(){
     
     });
 
+   
+    Route::controller(VendorOrderController::class)->group(function(){
+        Route::get('/vendor/order' , 'VendorOrder')->name('vendor.order');
     
+    
+    });
 
-});
+}); // end Vendor Group middleware
 
 
 
@@ -203,6 +217,64 @@ Route::controller(SliderController::class)->group(function(){
 
 });
 
+
+Route::controller(CouponController::class)->group(function(){
+    Route::get('/all/coupon' , 'AllCoupon')->name('all.coupon');
+    Route::get('/add/coupon' , 'AddCoupon')->name('add.coupon');
+    Route::post('/store/coupon' , 'StoreCoupon')->name('store.coupon');
+    Route::get('/edit/coupon/{id}' , 'EditCoupon')->name('edit.coupon');
+    Route::post('/update/coupon' , 'UpdateCoupon')->name('update.coupon');
+    Route::get('/delete/coupon/{id}' , 'DeleteCoupon')->name('delete.coupon');
+
+}); 
+
+Route::controller(ShippingAreaController::class)->group(function(){
+    Route::get('/all/division' , 'AllDivision')->name('all.division');
+    Route::get('/add/division' , 'AddDivision')->name('add.division');
+    Route::post('/store/division' , 'StoreDivision')->name('store.division');
+    Route::get('/edit/division/{id}' , 'EditDivision')->name('edit.division');
+    Route::post('/update/division' , 'UpdateDivision')->name('update.division');
+    Route::get('/delete/division/{id}' , 'DeleteDivision')->name('delete.division');
+
+}); 
+
+ // Shipping District All Route 
+ Route::controller(ShippingAreaController::class)->group(function(){
+    Route::get('/all/district' , 'AllDistrict')->name('all.district');
+    Route::get('/add/district' , 'AddDistrict')->name('add.district');
+    Route::post('/store/district' , 'StoreDistrict')->name('store.district');
+    Route::get('/edit/district/{id}' , 'EditDistrict')->name('edit.district');
+    Route::post('/update/district' , 'UpdateDistrict')->name('update.district');
+    Route::get('/delete/district/{id}' , 'DeleteDistrict')->name('delete.district');
+    Route::get('/district/ajax/{division_id}' , 'GetDistrict');
+
+}); 
+
+Route::controller(ShippingAreaController::class)->group(function(){
+    Route::get('/all/state' , 'AllState')->name('all.state');
+    Route::get('/add/state' , 'AddState')->name('add.state');
+    Route::post('/store/state' , 'StoreState')->name('store.state');
+    Route::get('/edit/state/{id}' , 'EditState')->name('edit.state');
+    Route::post('/update/state' , 'UpdateState')->name('update.state');
+    Route::get('/delete/state/{id}' , 'DeleteState')->name('delete.state');
+
+}); 
+
+Route::controller(OrderController::class)->group(function(){
+    Route::get('/pending/order' , 'PendingOrder')->name('pending.order');
+    Route::get('/admin/order/details/{order_id}' , 'AdminOrderDetails')->name('admin.order.details');
+    Route::get('/admin/confirmed/order' , 'AdminConfirmedOrder')->name('admin.confirmed.order');
+    Route::get('/admin/processing/order' , 'AdminProcessingOrder')->name('admin.processing.order');
+    Route::get('/admin/delivered/order' , 'AdminDeliveredOrder')->name('admin.delivered.order');
+    Route::get('/pending/confirm/{order_id}' , 'PendingToConfirm')->name('pending-confirm');
+    Route::get('/confirm/processing/{order_id}' , 'ConfirmToProcess')->name('confirm-processing');
+    Route::get('/processing/delivered/{order_id}' , 'ProcessToDelivered')->name('processing-delivered');
+    Route::get('/admin/invoice/download/{order_id}' , 'AdminInvoiceDownload')->name('admin.invoice.download');
+
+
+});
+
+
 });//Admin role middleware
 
 
@@ -214,3 +286,93 @@ Route::get('/vendor/all', [IndexController::class, 'VendorAll'])->name('vendor.a
 Route::get('/product/category/{id}/{slug}', [IndexController::class, 'CatWiseProduct']);
 Route::get('/product/subcategory/{id}/{slug}', [IndexController::class, 'SubCatWiseProduct']);
 Route::get('/product/view/modal/{id}', [IndexController::class, 'ProductViewAjax']);
+
+//Cart Conroller
+/// Add to cart store data
+Route::post('/cart/data/store/{id}', [CartController::class, 'AddToCart']);
+// Get Data from mini Cart
+Route::get('/product/mini/cart', [CartController::class, 'AddMiniCart']);
+//Remove Data
+Route::get('/minicart/product/remove/{rowId}', [CartController::class, 'RemoveMiniCart']);
+/// Add to cart store data For Product Details Page 
+Route::post('/dcart/data/store/{id}', [CartController::class, 'AddToCartDetails']);
+/// Add to Wishlist 
+Route::post('/add-to-wishlist/{product_id}', [WishlistController::class, 'AddToWishList']);
+Route::post('/add-to-compare/{product_id}', [CompareController::class, 'AddToCompare']);
+/// Frontend Coupon Option
+Route::post('/coupon-apply', [CartController::class, 'CouponApply']);
+Route::get('/coupon-calculation', [CartController::class, 'CouponCalculation']);
+Route::get('/coupon-remove', [CartController::class, 'CouponRemove']);
+// Checkout Page Route 
+Route::get('/checkout', [CartController::class, 'CheckoutCreate'])->name('checkout');
+
+Route::controller(CartController::class)->group(function(){
+    Route::get('/mycart' , 'MyCart')->name('mycart');
+    Route::get('/get-cart-product' , 'GetCartProduct');
+    Route::get('/cart-remove/{rowId}' , 'CartRemove');
+
+    Route::get('/cart-decrement/{rowId}' , 'CartDecrement');
+    Route::get('/cart-increment/{rowId}' , 'CartIncrement');
+
+}); 
+
+/// User All Route
+Route::middleware(['auth','role:user'])->group(function() {
+
+    // Wishlist All Route 
+   Route::controller(WishlistController::class)->group(function(){
+       Route::get('/wishlist' , 'AllWishlist')->name('wishlist');
+       Route::get('/get-wishlist-product' , 'GetWishlistProduct');
+       Route::get('/wishlist-remove/{id}' , 'WishlistRemove');
+   
+   }); 
+
+   Route::controller(CheckoutController::class)->group(function(){
+    Route::get('/district-get/ajax/{division_id}' , 'DistrictGetAjax');
+    Route::get('/state-get/ajax/{district_id}' , 'StateGetAjax');
+    Route::post('/checkout/store' , 'CheckoutStore')->name('checkout.store');
+
+
+}); 
+
+
+   
+   Route::controller(CompareController::class)->group(function(){
+    Route::get('/compare' , 'AllCompare')->name('compare');
+    Route::get('/compare-remove/{id}' , 'CompareRemove'); 
+     Route::get('/get-compare-product' , 'GetCompareProduct');
+ 
+
+});
+
+Route::controller(CartController::class)->group(function(){
+    Route::get('/mycart' , 'MyCart')->name('mycart');
+    Route::get('/get-cart-product' , 'GetCartProduct');
+    Route::get('/cart-remove/{rowId}' , 'CartRemove');
+    Route::get('/cart-decrement/{rowId}' , 'CartDecrement');
+    Route::get('/cart-increment/{rowId}' , 'CartIncrement');
+
+});
+
+Route::controller(StripeController::class)->group(function(){
+    Route::post('/stripe/order' , 'StripeOrder')->name('stripe.order');
+    Route::post('/cash/order' , 'CashOrder')->name('cash.order');
+
+
+
+}); 
+
+ // User Dashboard All Route 
+ Route::controller(AllUserController::class)->group(function(){
+    Route::get('/user/account/page' , 'UserAccount')->name('user.account.page');
+    Route::get('/user/account/page' , 'UserAccount')->name('user.account.page');
+    Route::get('/user/change/password' , 'UserChangePassword')->name('user.change.password');
+   
+    Route::get('/user/order/page' , 'UserOrderPage')->name('user.order.page');
+    Route::get('/user/order_details/{order_id}' , 'UserOrderDetails');
+    Route::get('/user/invoice_download/{order_id}' , 'UserOrderInvoice');  
+
+
+}); 
+
+});
