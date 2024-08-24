@@ -11,6 +11,8 @@ use Illuminate\Support\Facades\Session;
 use Carbon\Carbon;
 use Illuminate\Support\Facades\Auth;
 use Barryvdh\DomPDF\Facade\Pdf;
+use App\Models\Product; 
+use Illuminate\Support\Facades\DB;
 
 class OrderController extends Controller
 {
@@ -80,6 +82,14 @@ class OrderController extends Controller
             'message' => 'Order Deliverd Successfully',
             'alert-type' => 'success'
         );
+
+        
+$product = OrderItem::where('order_id',$order_id)->get();
+foreach($product as $item){
+    Product::where('id',$item->product_id)
+            ->update(['product_qty' => DB::raw('product_qty-'.$item->qty) ]);
+} 
+
 
         return redirect()->route('admin.delivered.order')->with($notification); 
 

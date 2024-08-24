@@ -1,5 +1,9 @@
 @extends('frontend.master_dashboard')
 @section('main')
+@section('title')
+   Vendor Details Page 
+@endsection
+
 
 @php
 $vendor_name_slug = Str::slug($vendor->name);

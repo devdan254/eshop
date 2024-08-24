@@ -1,3 +1,6 @@
+@php
+$setting = App\Models\SiteSetting::find(1);
+        @endphp
 <header class="header-area header-style-1 header-height-2">
     <div class="mobile-promotion">
         <span>Grand opening, <strong>up to 15%</strong> off all items. Only <strong>3 days</strong> left</span>
@@ -45,7 +48,7 @@
                 </ul>
             </li>
 
-             <li>Need help? Call Us: <strong class="text-brand"> + 1800 900</strong></li>
+             <li>Support Center : <strong class="text-brand">{{ $setting->support_phone }}</strong></li>
 
                         </ul>
                     </div>
@@ -57,7 +60,7 @@
         <div class="container">
             <div class="header-wrap">
                 <div class="logo logo-width-1">
-                    <a href="{{ url('/') }}"><img src="{{ asset('frontend/assets/imgs/theme/logo.svg') }}" alt="logo" /></a>
+                    <a href="/"><img src="{{ asset($setting->logo)   }}" alt="logo" /></a>
                 </div>
 <div class="header-right">
     <div class="search-style-2">
@@ -276,7 +279,7 @@
                                 @endforeach
                                 
             <li>
-                <a href="page-contact.html">Contact</a>
+                <a href="{{ route('home.blog') }}">Blog</a>
             </li>
         </ul>
     </nav>
