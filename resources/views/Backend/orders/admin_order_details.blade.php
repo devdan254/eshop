@@ -228,7 +228,7 @@
                                                                     </td>
                                                         
                                                                     <td class="col-md-3">
-                                                                        <label>${{ $item->price }} <br> Total = ${{ $item->price * $item->qty }}   </label>
+                                                                        <label>Ksh {{ $item->price }} <br> Total = Ksh {{ $item->price * $item->qty }}   </label>
                                                                     </td> 
                                                         
                                                                 </tr>

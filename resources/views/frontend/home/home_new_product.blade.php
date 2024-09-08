@@ -24,7 +24,7 @@ $categories = App\Models\Category::orderBy('category_name','ASC')->get();
             <div class="tab-pane fade show active" id="tab-one" role="tabpanel" aria-labelledby="tab-one">
                 <div class="row product-grid-4">
                     @foreach($products as $product)
-    <div class="col-lg-1-5 col-md-4 col-12 col-sm-6">
+    <div class="col-lg-1-5 col-md-4 col-6 col-sm-6">
         <div class="product-cart-wrap mb-30 wow animate__animated animate__fadeIn" data-wow-delay=".1s">
             <div class="product-img-action-wrap">
                 <div class="product-img product-img-zoom">
@@ -59,9 +59,10 @@ $categories = App\Models\Category::orderBy('category_name','ASC')->get();
             </div>
             <div class="product-content-wrap">
                 <div class="product-category">
-                    <a href="shop-grid-right.html">Snack</a>
+                    <a href="#">{{ $category->category_name }}</a>
                 </div>
-                <h2><a href="{{ url('product/details/'.$product->id.'/'.$product->product_slug) }}"> {{ $product->product_name }} </a></h2>
+                <h6 style="color: #282828"><a style="color: #282828" href="{{ url('product/details/'.$product->id.'/'.$product->product_slug) }}">{{ Str::limit($product->product_name, 22) }}
+                </a></h6>
                 @php
 $reviewcount = App\Models\Review::where('product_id',$product->id)->where('status',1)->latest()->get();
 $avarage = App\Models\Review::where('product_id',$product->id)->where('status',1)->avg('rating');
@@ -94,18 +95,21 @@ $avarage = App\Models\Review::where('product_id',$product->id)->where('status',1
                 </div>
                 <div class="product-card-bottom">
                     @if($product->discount_price == NULL)
-                    <div class="product-price">
-                        <span>${{ $product->selling_price }}</span>
-                    </div>
-                    @else
+                                    <div class="product-price">
+                                        <span><small><small>Ksh</small></small> {{ number_format($product->selling_price) }}
+                                        </span>
+                                    </div>
+                                    @else
 
-                    <div class="product-price">
-                        <span>${{ $product->discount_price }}</span>
-                           <span class="old-price">${{ $product->selling_price }}</span>
-                    </div>
-                    @endif
+                                    <div class="product-price">
+                                        <span><small><small>Ksh</small></small> {{ number_format($product->discount_price) }}
+                                        </span>
+                                           <span class="old-price"><small>ksh</small> {{ number_format($product->selling_price) }}
+                                           </span>
+                                    </div>
+                                    @endif
                     <div class="add-cart">
-                        <a class="add" href="{{ url('product/details/'.$product->id.'/'.$product->product_slug) }}"><i class="fi-rs-shopping-cart mr-5"></i>Details </a>
+                        <a class="add" href="{{ url('product/details/'.$product->id.'/'.$product->product_slug) }}"><i class="fi-rs-shopping-cart mr-5"></i></a>
                     </div>
                 </div>
             </div>
@@ -128,7 +132,7 @@ $catwiseProduct = App\Models\Product::where('category_id',$category->id)->orderB
 @endphp
 
         @forelse($catwiseProduct as $product)
-                    <div class="col-lg-1-5 col-md-4 col-12 col-sm-6">
+                    <div class="col-lg-1-5 col-md-4 col-6 col-sm-6">
                         <div class="product-cart-wrap mb-30 wow animate__animated animate__fadeIn" data-wow-delay=".1s">
                             <div class="product-img-action-wrap">
                                 <div class="product-img product-img-zoom">
@@ -162,9 +166,10 @@ $catwiseProduct = App\Models\Product::where('category_id',$category->id)->orderB
                             </div>
                             <div class="product-content-wrap">
                                 <div class="product-category">
-                                    <a href="shop-grid-right.html">Snack</a>
+                                    <a href="#">{{ $category->category_name }}</a>
                                 </div>
-                                <h2><a href="{{ url('product/details/'.$product->id.'/'.$product->product_slug) }}"> {{ $product->product_name }} </a></h2>
+                                <h6 style="color: #282828"><a style="color: #282828" href="{{ url('product/details/'.$product->id.'/'.$product->product_slug) }}">{{ Str::limit($product->product_name, 22) }}
+                                </a></h6>
                                 <div class="product-rate-cover">
                                     <div class="product-rate d-inline-block">
                                         <div class="product-rating" style="width: 90%"></div>
@@ -182,17 +187,20 @@ $catwiseProduct = App\Models\Product::where('category_id',$category->id)->orderB
                                 <div class="product-card-bottom">
                                     @if($product->discount_price == NULL)
                                     <div class="product-price">
-                                        <span>${{ $product->selling_price }}</span>
+                                        <span><small><small>Ksh</small></small> {{ number_format($product->selling_price) }}
+                                        </span>
                                     </div>
                                     @else
 
                                     <div class="product-price">
-                                        <span>${{ $product->discount_price }}</span>
-                                           <span class="old-price">${{ $product->selling_price }}</span>
+                                        <span><small><small>Ksh</small></small> {{ number_format($product->discount_price) }}
+                                        </span>
+                                           <span class="old-price"><small>ksh</small> {{ number_format($product->selling_price) }}
+                                           </span>
                                     </div>
                                     @endif
                                     <div class="add-cart">
-                                        <a class="add" href="{{ url('product/details/'.$product->id.'/'.$product->product_slug) }}"><i class="fi-rs-shopping-cart mr-5"></i>Details </a>
+                                        <a class="add" href="{{ url('product/details/'.$product->id.'/'.$product->product_slug) }}"><i class="fi-rs-shopping-cart mr-5"></i></a>
                                     </div>
                                 </div>
                             </div>

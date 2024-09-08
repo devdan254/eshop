@@ -88,19 +88,19 @@ $discount = ($amount/$product->selling_price) * 100;
 
             @if($product->discount_price == NULL)
              <div class="product-price mt-10">
-                <span>${{ $product->selling_price }} </span>
+                <span>Ksh {{ number_format($product->selling_price) }} </span>
 
             </div>
             @else
                <div class="product-price mt-10">
-                <span>${{ $product->discount_price }} </span>
-                <span class="old-price">${{ $product->selling_price }}</span>
+                <span>Ksh {{ number_format($product->discount_price) }} </span>
+                <span class="old-price">Ksh {{ number_format($product->selling_price) }}</span>
             </div>
             @endif
 
             <div class="sold mt-15 mb-15">
                 <div class="progress mb-5">
-                    <div class="progress-bar" role="progressbar" style="width: 50%" aria-valuemin="0" aria-valuemax="100"></div>
+                    <div class="progress-bar" role="progressbar" style="width: 100%" aria-valuemin="0" aria-valuemax="100"></div>
                 </div>
 
             </div>

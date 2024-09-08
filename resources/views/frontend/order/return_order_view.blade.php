@@ -54,7 +54,7 @@
         <tr>
             <td>{{ $key+1 }}</td>
             <td> {{ $order->order_date }}</td>
-           <td> ${{ $order->amount }}</td>
+           <td> Ksh {{ number_format($order->amount) }}</td>
             <td> {{ $order->payment_method }}</td>
             <td> {{ $order->invoice_no }}</td>
             <td> {{ $order->return_reason }}</td>

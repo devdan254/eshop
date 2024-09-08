@@ -14,7 +14,7 @@ $setting = App\Models\SiteSetting::find(1);
                                 Stay home & get your daily <br />
                                 needs from our shop
                             </h2>
-                            <p class="mb-45">Start You'r Daily Shopping with <span class="text-brand">Nest Mart</span></p>
+                            <p class="mb-45">Start You'r Daily Shopping with <span class="text-brand">G-Mart Market Place</span></p>
                             <form class="form-subcriber d-flex">
                                 <input type="email" placeholder="Your emaill address" />
                                 <button class="btn" type="submit">Subscribe</button>
@@ -36,7 +36,7 @@ $setting = App\Models\SiteSetting::find(1);
                         </div>
                         <div class="banner-text">
                             <h3 class="icon-box-title">Best prices & offers</h3>
-                            <p>Orders $50 or more</p>
+                            <p>Orders Ksh 100 or more</p>
                         </div>
                     </div>
                 </div>
@@ -105,13 +105,13 @@ $setting = App\Models\SiteSetting::find(1);
                     <div class="widget-about font-md mb-md-3 mb-lg-3 mb-xl-0 wow animate__animated animate__fadeInUp" data-wow-delay="0">
                         <div class="logo mb-30">
                             <a href="index.html" class="mb-15"><img src="{{ asset($setting->logo ) }}" alt="logo" /></a>
-                                <p class="font-lg text-heading">Awesome grocery store website Ecommerce</p>
+                                <p class="font-lg text-heading">Awesome Products and Services Market Place</p>
                         </div>
                         <ul class="contact-infor">
                             <li><img src="{{ asset('frontend/assets/imgs/theme/icons/icon-location.svg') }}" alt="" /><strong>Address: </strong> <span> {{ $setting->company_address }} </span></li>
                             <li><img src="{{ asset('frontend/assets/imgs/theme/icons/icon-contact.svg') }}" alt="" /><strong>Call Us:</strong><span>{{ $setting->phone_one }}</span></li>
                             <li><img src="{{ asset('frontend/assets/imgs/theme/icons/icon-email-2.svg') }}" alt="" /><strong>Email:</strong><span>{{ $setting->email }}</span></li>
-                            <li><img src="{{ asset('frontend/assets/imgs/theme/icons/icon-clock.svg') }}" alt="" /><strong>Hours:</strong><span>10:00 - 18:00, Mon - Sat</span></li>
+                            <li><img src="{{ asset('frontend/assets/imgs/theme/icons/icon-clock.svg') }}" alt="" /><strong>Hours:</strong><span>08:00 - 17:00, Mon - Fri</span></li>
                         </ul>
                     </div>
                 </div>
@@ -172,7 +172,7 @@ $setting = App\Models\SiteSetting::find(1);
                 <div class="footer-bottom"></div>
             </div>
             <div class="col-xl-4 col-lg-6 col-md-6">
-                <p class="font-sm mb-0">&copy; 2024, <strong class="text-brand">Ecommerce</strong> -  {{ $setting->copyright }}</p>
+                <p class="font-sm mb-0">Copyright 2024 ©{{ $setting->copyright }}. All rights reserved. Powered by <a href="https://techrandevelopers.com/">TechRan Developers</a></p>
             </div>
             <div class="col-xl-4 col-lg-6 text-center d-none d-xl-block">
 

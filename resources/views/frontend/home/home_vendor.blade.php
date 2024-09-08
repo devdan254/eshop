@@ -12,7 +12,7 @@ $vendors = App\Models\User::where('status','active')->where('role','vendor')->or
               </div>
 <div class="row vendor-grid">
  @foreach($vendors as $vendor)
-                  <div class="col-lg-3 col-md-6 col-12 col-sm-6 justify-content-center">
+                  <div class="col-lg-3 col-md-6 col-6 col-sm-6 justify-content-center">
                       <div class="vendor-wrap mb-40">
                           <div class="vendor-img-action-wrap">
                               <div class="vendor-img">

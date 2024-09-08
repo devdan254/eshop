@@ -72,7 +72,7 @@
 
 
           @foreach($products as $product)
-    <div class="col-lg-1-5 col-md-4 col-12 col-sm-6">
+    <div class="col-lg-1-5 col-md-4 col-6 col-sm-6">
         <div class="product-cart-wrap mb-30 wow animate__animated animate__fadeIn" data-wow-delay=".1s">
             <div class="product-img-action-wrap">
                 <div class="product-img product-img-zoom">
@@ -110,8 +110,8 @@
                 <div class="product-category">
                     <a href="shop-grid-right.html">{{ $product['category']['category_name'] }}</a>
                 </div>
-                <h2><a href="{{ url('product/details/'.$product->id.'/'.$product->product_slug) }}"> {{ $product->product_name }} </a></h2>
-                <div class="product-rate-cover">
+                <h6 style="color: #282828"><a style="color: #282828" href="{{ url('product/details/'.$product->id.'/'.$product->product_slug) }}">{{ Str::limit($product->product_name, 22) }}
+                </a></h6>                <div class="product-rate-cover">
                     <div class="product-rate d-inline-block">
                         <div class="product-rating" style="width: 90%"></div>
                     </div>
@@ -131,23 +131,22 @@
                 <div class="product-card-bottom">
 
                     @if($product->discount_price == NULL)
-                     <div class="product-price">
-                        <span>${{ $product->selling_price }}</span>
-
-                    </div>
-
-                    @else
                     <div class="product-price">
-                        <span>${{ $product->discount_price }}</span>
-                        <span class="old-price">${{ $product->selling_price }}</span>
+                        <span><small><small>Ksh</small></small> {{ number_format($product->selling_price) }}
+                        </span>
+                    </div>
+                    @else
+
+                    <div class="product-price">
+                        <span><small><small>Ksh</small></small> {{ number_format($product->discount_price) }}
+                        </span><br>
+                           <span class="old-price"><small>ksh</small> {{ number_format($product->selling_price) }}
+                           </span>
                     </div>
                     @endif
-
-
-
-                    <div class="add-cart">
-                        <a class="add" href="{{ url('product/details/'.$product->id.'/'.$product->product_slug) }}"><i class="fi-rs-shopping-cart mr-5"></i>Details </a>
-                    </div>
+    <div class="add-cart">
+        <a class="add" href="{{ url('product/details/'.$product->id.'/'.$product->product_slug) }}"><i class="fi-rs-shopping-cart mr-5"></i></a>
+    </div>
                 </div>
             </div>
         </div>
@@ -216,9 +215,9 @@ $products = App\Models\Product::where('category_id',$category->id)->get();
                                 <p><a href="{{ url('product/details/'.$product->id.'/'.$product->product_slug) }}">{{ $product->product_name }}</a></p>
                 
                                    @if($product->discount_price == NULL)
-                                    <p class="price mb-0 mt-5">${{ $product->selling_price }}</p>
+                                    <p class="price mb-0 mt-5">Ksh {{ $product->selling_price }}</p>
                                    @else
-                                   <p class="price mb-0 mt-5">${{ $product->discount_price }}</p>
+                                   <p class="price mb-0 mt-5">Ksh {{ $product->discount_price }}</p>
                                    @endif
                 
                                 <div class="product-rate">

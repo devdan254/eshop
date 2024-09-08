@@ -47,7 +47,7 @@
 				<td> {{ $key+1 }} </td>
 				<td>{{ $item['order']['order_date'] }}</td>
 				<td>{{ $item['order']['invoice_no'] }}</td>
-				<td>${{ $item['order']['amount'] }}</td>
+				<td>Ksh {{ number_format($item['order']['amount']) }}</td>
 				<td>{{ $item['order']['payment_method'] }}</td>
 				<td>{{ $item['order']['return_reason'] }}</td>
                 <td> 

@@ -48,14 +48,14 @@
     <tr>
         <td valign="top">
           <!-- {{-- <img src="" alt="" width="150"/> --}} -->
-          <h2 style="color: green; font-size: 26px;"><strong>EasyShop</strong></h2>
+          <h2 style="color: green; font-size: 26px;"><strong>G-Mart MarketPlace</strong></h2>
         </td>
         <td align="right">
             <pre class="font" >
                EasyShop Head Office
-               Email:support@easylearningbd.com <br>
+               Email:support@gmart.co.ke <br>
                Mob: 1245454545 <br>
-               Dhaka 1207,Dhanmondi:#4 <br>
+               Nairobi,Kenya <br>
 
             </pre>
         </td>
@@ -138,7 +138,7 @@
           <td align="center">{{ $item->product->vendor->name }}</td>
           @endif
 
-        <td align="center">${{ $item->price }}</td>
+        <td align="center">Ksh {{ number_format($item->price) }}</td>
       </tr>
       @endforeach
     </tbody>
@@ -147,8 +147,8 @@
   <table width="100%" style=" padding:0 10px 0 10px;">
     <tr>
         <td align="right" >
-            <h2><span style="color: green;">Subtotal:</span>${{ $order->amount }}</h2>
-            <h2><span style="color: green;">Total:</span> ${{ $order->amount }}</h2>
+            <h2><span style="color: green;">Subtotal:</span>Ksh {{ $order->amount }}</h2>
+            <h2><span style="color: green;">Total:</span> Ksh {{ $order->amount }}</h2>
             {{-- <h2><span style="color: green;">Full Payment PAID</h2> --}}
         </td>
     </tr>

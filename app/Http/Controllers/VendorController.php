@@ -6,7 +6,11 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use App\Models\User;
 use Illuminate\Support\Facades\Hash;
+use App\Notifications\VendorRegistration;
+use Illuminate\Support\Facades\Notification;
+
 class VendorController extends Controller
+
 {
     //
 
@@ -108,6 +112,7 @@ class VendorController extends Controller
 
        public function VendorRegister(Request $request) {
 
+        $user = User::Where('role','admin')->get(); 
         $request->validate([
             'name' => ['required', 'string', 'max:255'],
             'email' => ['required', 'string', 'email', 'max:255', 'unique:users'],
@@ -129,7 +134,8 @@ class VendorController extends Controller
             'message' => 'Vendor Registered Successfully',
             'alert-type' => 'success'
         );
-
+    
+        Notification::send($user, new VendorRegistration($request->name));
         return redirect()->route('vendor.login')->with($notification);
 
     }// End Mehtod 

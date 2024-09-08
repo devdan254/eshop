@@ -21,8 +21,10 @@
     <!-- Favicon -->  
     <link rel="shortcut icon" type="image/x-icon" href="{{ asset($setting->logo)   }}" />
     <!-- Template CSS -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.12.1/jquery-ui.css" type="text/css" media="all" />
     <link rel="stylesheet" href="{{ asset('frontend/assets/css/plugins/animate.min.css') }}" />
     <link rel="stylesheet" href="{{ asset('frontend/assets/css/main.css?v=5.3') }}" />
+    <link rel="stylesheet" href="{{ asset('frontend/assets/css/plugins/slider-range.css') }}" />
     <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.css" >
     <script src="https://js.stripe.com/v3/"></script>
    
@@ -73,6 +75,7 @@
     </div>
     <!-- Vendor JS-->
    
+    
     <script src="{{ asset('frontend/assets/js/vendor/modernizr-3.6.0.min.js') }}"></script>
     <script src="{{ asset('frontend/assets/js/vendor/jquery-3.6.0.min.js') }}"></script>
     <script src="{{ asset('frontend/assets/js/vendor/jquery-migrate-3.3.0.min.js') }}"></script>
@@ -80,6 +83,7 @@
     <script src="{{ asset('frontend/assets/js/plugins/slick.js') }}"></script>
     <script src="{{ asset('frontend/assets/js/plugins/jquery.syotimer.min.js') }}"></script>
     <script src="{{ asset('frontend/assets/js/plugins/waypoints.js') }}"></script>
+   
     <script src="{{ asset('frontend/assets/js/plugins/wow.js') }}"></script>
     <script src="{{ asset('frontend/assets/js/plugins/perfect-scrollbar.js') }}"></script>
     <script src="{{ asset('frontend/assets/js/plugins/magnific-popup.js') }}"></script>
@@ -95,10 +99,10 @@
     <!-- Template  JS -->
     <script src="{{ asset('frontend/assets/js/main.js?v=5.3') }}"></script>
     <script src="{{ asset('frontend/assets/js/shop.js?v=5.3') }}"></script>
-   
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.js" type="text/javascript"></script>
     <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
-
+    <script src="{{ asset('frontend/assets/js/script.js') }}"></script>
     <script>
      @if(Session::has('message'))
      var type = "{{ Session::get('alert-type','info') }}"
@@ -244,8 +248,12 @@
                    //console.log(response)
 
                    $('span[id="cartSubTotal"]').text(response.cartTotal);
+                   $('span[id="McartSubTotal"]').text(response.cartTotal);
+
                    $('#cartQty').text(response.cartQty);
+                   $('#McartQty').text(response.cartQty);
                    var miniCart = ""
+                    var MminiCart = ""
         $.each(response.carts, function(key,value){
            miniCart += `<ul> 
             <li>
@@ -263,8 +271,27 @@
         
         <hr><br>  
                `  
+          
+           MminiCart += `<ul>
+                <li>
+                    <div class="shopping-cart-img">
+                        <a href="#"><img alt="Nest" src="/${value.options.image}"  style="width:50px;height:50px;" /></a>
+                    </div>
+                    <div class="shopping-cart-title">
+                        <h4><a href="#"> ${value.name} </a></h4>
+                         <h4><span>${value.qty} × </span>${value.price}</h4>
+                    </div>
+                    <div class="shopping-cart-delete">
+                        <a type="submit" id="${value.rowId}" onclick="miniCartRemove(this.id)"  ><i class="fi-rs-cross-small"></i></a>
+                    </div>
+                </li>
+                
+            </ul>
+            
+            <hr><br>`
           });
             $('#miniCart').html(miniCart);
+            $('#MminiCart').html(MminiCart);
                }
            })
         }
@@ -400,10 +427,11 @@
                 dataType: 'json',
                 url: "/get-wishlist-product/",
                 success:function(response){
-                    console.log();
+                    
                     
                     $('#wishQty').text(response.wishQty);
 
+                    $('#MwishQty').text(response.wishQty);
                     var rows = ""
                    $.each(response.wishlist, function(key,value){
         rows += `<tr class="pt-30">
@@ -422,8 +450,8 @@
                         </td>
                         <td class="price" data-title="Price">
                         ${value.product.discount_price == null
-                        ? `<h3 class="text-brand">$${value.product.selling_price}</h3>`
-                        :`<h3 class="text-brand">$${value.product.discount_price}</h3>`
+                        ? `<h3 class="text-brand">Ksh ${value.product.selling_price}</h3>`
+                        :`<h3 class="text-brand">Ksh ${value.product.discount_price}</h3>`
                         }
                             
                         </td>
@@ -555,8 +583,8 @@ function wishlistRemove(id){
                                 <td class="text-muted font-sm fw-600 font-heading">Price</td>
                                 <td class="product_price">
                   ${value.product.discount_price == null
-                    ? `<h4 class="price text-brand">$${value.product.selling_price}</h4>`
-                    :`<h4 class="price text-brand">$${value.product.discount_price}</h4>`
+                    ? `<h4 class="price text-brand">Ksh ${value.product.selling_price}</h4>`
+                    :`<h4 class="price text-brand">Ksh ${value.product.discount_price}</h4>`
                     } 
                                 </td>
                               
@@ -656,7 +684,7 @@ function compareRemove(id){
                
            </td>
            <td class="price" data-title="Price">
-               <h4 class="text-body">$${value.price} </h4>
+               <h4 class="text-body">Ksh ${value.price} </h4>
            </td>
              <td class="price" data-title="Price">
              ${value.options.color == null
@@ -681,7 +709,7 @@ function compareRemove(id){
                </div>
            </td>
            <td class="price" data-title="Price">
-               <h4 class="text-brand">$${value.subtotal} </h4>
+               <h4 class="text-brand">Ksh ${value.subtotal} </h4>
            </td>
                        <td class="action text-center" data-title="Remove">
             <a type="submit" class="text-body"  id="${value.rowId}" onclick="cartRemove(this.id)"><i class="fi-rs-trash"></i></a></td>
@@ -822,7 +850,7 @@ function compareRemove(id){
                         <h6 class="text-muted">Subtotal</h6>
                     </td>
                     <td class="cart_total_amount">
-                        <h4 class="text-brand text-end">$${data.total}</h4>
+                        <h4 class="text-brand text-end">Ksh ${data.total}</h4>
                     </td>
                 </tr>
                  
@@ -831,7 +859,7 @@ function compareRemove(id){
                         <h6 class="text-muted">Grand Total</h6>
                     </td>
                     <td class="cart_total_amount">
-                        <h4 class="text-brand text-end">$${data.total}</h4>
+                        <h4 class="text-brand text-end">Ksh ${data.total}</h4>
                     </td>
                 </tr>
                 ` ) 
@@ -842,7 +870,7 @@ function compareRemove(id){
                         <h6 class="text-muted">Subtotal</h6>
                     </td>
                     <td class="cart_total_amount">
-                        <h4 class="text-brand text-end">$${data.subtotal}</h4>
+                        <h4 class="text-brand text-end">Ksh ${data.subtotal}</h4>
                     </td>
                 </tr>
                  
@@ -867,7 +895,7 @@ function compareRemove(id){
                         <h6 class="text-muted">Grand Total </h6>
                     </td>
                     <td class="cart_total_amount">
-          <h4 class="text-brand text-end">$${data.total_amount}</h4>
+          <h4 class="text-brand text-end">Ksh ${data.total_amount}</h4>
                     </td>
                 </tr> `
                     ) 

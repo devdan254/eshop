@@ -45,11 +45,11 @@
      <div class="clearfix product-price-cover">
          <div class="product-price primary-color float-left">
              
-            <span class="current-price text-brand">$</span>
-            <span class="current-price text-brand" id="pprice">$ </span>
+            <span class="current-price text-brand">Ksh </span>
+            <span class="current-price text-brand" id="pprice">Ksh  </span>
 
   <span class="old-price font-md ml-15"> </span>
-   <span class="old-price font-md ml-15" id="oldprice">$  </span>
+   <span class="old-price font-md ml-15" id="oldprice">Ksh   </span>
              </span>
          </div>
      </div>
